@@ -1,0 +1,118 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[landscape,margin=1cm]{geometry}
+\usepackage{multicol}
+\usepackage{tabularx}
+\usepackage{parskip}   % no paragraph indents
+\setlength{\columnsep}{1cm} % space between columns
+\pagestyle{empty}      % no page numbers
+
+\begin{document}
+
+\begin{multicols}{3} % 3-column layout
+
+\begin{center}
+    \textbf{NMAP QUICK REFERENCE CARD}
+    \vskip-5pt
+    \par\noindent\hrule
+\end{center}
+
+\textit{Port Specification}
+\vskip-5pt
+\verb|nmap -p 80 10.20.4.2| \dotfill Port specific\\
+\verb|nmap -p 23-100 10.20.4.2| \dotfill Port range\\
+\verb|nmap -pU:110,T:23 10.20.4.2| \dotfill UDP/TCP Specific\\
+\verb|nmap -p- 10.20.4.2| \dotfill All ports\\
+\verb|nmap -smtp,https 10.20.4.2| \dotfill Protocol specific\\
+\verb|nmap -F 10.20.4.2| \dotfill Fast, for speed up\\
+\verb|nmap -p "*" ftp 10.20.4.2| \dotfill Using name\\
+\verb|nmap -r ftp 10.20.4.2| \dotfill Sequential\\
+
+\textit{Host} \verb|/10.20.4.1| \textit{Discovery}
+\vskip-5pt
+\verb|nmap 10.20.4.1 -sL| \dotfill List without scanning\\
+\verb|nmap 10.20.4.1/8 -sn| \dotfill Disable port scanning\\
+\verb|nmap 10.20.4.1-8 -Pn| \dotfill Port scan only\\
+\verb|nmap 10.20.4.12 -PS22-25,80| \dotfill \verb|TCP-SYN| discovery\\
+\verb|nmap 10.20.4.12 -PA22-25,80| \dotfill \verb|TCP-ACK| discovery\\
+\verb|nmap 10.20.4.1-8 -PU53| \dotfill \verb|UDP| discovery\\
+\verb|nmap 10.20.4.1/8 -PR| \dotfill \verb|ARP| discovery (local)\\
+\verb|nmap 10.20.4.1 -n| \dotfill no \verb|DNS| resolution\\
+
+\textit{Version Detection}
+\vskip-5pt
+\verb|nmap 10.20.4.1 -sV| \dotfill Try detect version of service\\
+\verb|nmap...-sV --version-intensity 6| \dotfill Intensity 0-9\\
+\verb|nmap...-sV --version-all| \dotfill Intensity 9\\
+\verb|nmap...-sV --version-light| \dotfill Enable light mode\\
+\verb|nmap 10.20.4.1 -A| \dotfill OS/Vers Detection + Scriptscan\\
+\verb|nmap 10.20.4.1 -O| \dotfill Remote OS detection\\
+
+\textit{Firewall Proofing}
+\vskip-5pt
+\verb|nmap -f 1.2.4.1| \dotfill Scan fragment packets\\
+\verb|nmap -mtu [MTU] 1.2.4.1| \dotfill Specify MTU\\
+\verb|nmap -sI [zombie] 1.2.4.1| \dotfill Scan idle zombie\\
+\verb|nmap --source-port 33220…| \dotfill Manual source port\\
+\verb|nmap --data-length 64…| \dotfill Random append data\\
+\verb|nmap --randomize-hosts 1.2.4.1|\dotfill Scan order random\\
+\verb|nmap --badsum…|\dotfill Bad checksum\\
+
+\textit{Scan Types}
+\vskip-5pt
+\verb|nmap 10.20.4.1 -sS| \dotfill \verb|TCP-SYN| port scan\\
+\verb|nmap 10.20.4.1 -sT| \dotfill \verb|TCP-CONNECT| port scan\\
+\verb|nmap 10.20.4.1 -sA| \dotfill \verb|TCP-ACK| port scan\\
+\verb|nmap 10.20.4.1 -sU| \dotfill \verb|UDP| port scan\\
+\verb|nmap -Sf 10.20.4.1| \dotfill \verb|TCP-FIN| scan\\
+\verb|nmap -SX 10.20.4.1| \dotfill \verb|XMAS| scan\\
+\verb|nmap -Sp 10.20.4.1| \dotfill Ping scan\\
+\verb|nmap -Su 10.20.4.1| \dotfill \verb|UDP| scan\\
+\verb|nmap -Sa 10.20.4.1| \dotfill \verb|TCP-ACK| scan \\
+\verb|nmap -Sl 10.20.4.1| \dotfill List scan\\
+
+\textit{Timing Options}
+\vskip-5pt
+\verb|nmap -T0 10.20.4.1| \dotfill Slowest scan\\
+\verb|nmap -T1 10.20.4.1| \dotfill Avoid IDS scan\\
+\verb|nmap -T2 10.20.4.1| \dotfill Timely scan\\
+\verb|nmap -T3 10.20.4.1| \dotfill Default scan\\
+\verb|nmap -T4 10.20.4.1| \dotfill Aggressive scan\\
+\verb|nmap -T5 10.20.4.1| \dotfill Very aggressive scan\\
+
+\textit{Scan Options}
+\vskip-5pt
+\verb|nmap -sP 10.20.4.1| \dotfill Ping scan only\\
+\verb|nmap -PU 10.20.4.1| \dotfill \verb|UDP| ping scan\\
+\verb|nmap -PE 10.20.4.1| \dotfill \verb|ICMP| echo ping\\
+\verb|nmap -PO 10.20.4.1| \dotfill \verb|IP| protocol ping\\
+\verb|nmap -PR 10.20.4.1| \dotfill \verb|ARP| ping\\
+\verb|nmap -Pn 10.20.4.1| \dotfill Scan without ping\\
+\verb|nmap --traceroute 10.20.4.1| \dotfill Traceroute\\
+
+\textit{Scripts NSE}
+\vskip-5pt
+\verb|nmap --script "test" 10.20.4.0/8| \dotfill Exec script\\
+\verb|nmap --script-updatedb| \dotfill Add new scripts\\
+\verb|nmap -sV -sC| \dotfill Use safe default scripts\\
+\verb|nmap -script-help "test"| \dotfill Get help on script\\
+
+\textit{Misc Commands}
+\vskip-5pt
+\verb|nmap -6| \dotfill \verb|IPv6| targets\\
+\verb|nmap --proxies <URL>:<port>,| \dotfill Run with proxies\\
+\verb|nmap --open| \dotfill Show only open ports\\
+
+\verb|10.20.4.1| \textit{Specification}
+\vskip-5pt
+\verb|nmap 10.20.4.1| \dotfill Single \verb|IP| scan\\
+\verb|nmap 10.20.4.1 10.20.5.3| \dotfill Specific \verb|IP|s scan\\
+\verb|nmap 10.20.4.1-254| \dotfill Range \verb|IP| scan\\
+\verb|nmap xyz.org| \dotfill Domain scan\\
+\verb|nmap 10.20.4.0/8| \dotfill CIDR notation scan\\
+\verb|nmap -iL scan.txt| \dotfill Scan from file\\
+\verb|nmap --exclude 10.20.4.1| \dotfill Exclude from scan\\
+
+\end{multicols}
+\end{document}
+
