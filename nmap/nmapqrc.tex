@@ -16,7 +16,9 @@
     \vskip-5pt
     \par\noindent\hrule
 \end{center}
-
+\vskip10pt
+\verb|nmap [scan-types] [opts] <ip> [spec]|
+\vskip10pt
 \textit{Port Specification}
 \vskip-5pt
 \verb|nmap -p 80 10.20.4.2| \dotfill Port specific\\
@@ -45,6 +47,8 @@
 \verb|nmap...-sV --version-intensity 6| \dotfill Intensity 0-9\\
 \verb|nmap...-sV --version-all| \dotfill Intensity 9\\
 \verb|nmap...-sV --version-light| \dotfill Enable light mode\\
+\verb|nmap...-sV --version-trace| \dotfill Trace version scan\\
+\verb|nmap 10.20.4.1 -sV| \dotfill RPC scan\\
 \verb|nmap 10.20.4.1 -A| \dotfill OS/Vers Detection + Scriptscan\\
 \verb|nmap 10.20.4.1 -O| \dotfill Remote OS detection\\
 
@@ -52,10 +56,12 @@
 \vskip-5pt
 \verb|nmap -f 1.2.4.1| \dotfill Scan fragment packets\\
 \verb|nmap -mtu [MTU] 1.2.4.1| \dotfill Specify MTU\\
+\verb|nmap -D RND: <num> 10.20.4.1| \dotfill Use a decoy\\
 \verb|nmap -sI [zombie] 1.2.4.1| \dotfill Scan idle zombie\\
 \verb|nmap --source-port 33220…| \dotfill Manual source port\\
 \verb|nmap --data-length 64…| \dotfill Random append data\\
 \verb|nmap --randomize-hosts 1.2.4.1|\dotfill Scan order random\\
+\verb|nmap --spoof-mac [MAC]…| \dotfill Scan order random\\
 \verb|nmap --badsum…|\dotfill Bad checksum\\
 
 \textit{Scan Types}
@@ -80,15 +86,36 @@
 \verb|nmap -T4 10.20.4.1| \dotfill Aggressive scan\\
 \verb|nmap -T5 10.20.4.1| \dotfill Very aggressive scan\\
 
+\textit{Output}
+\vskip-5pt
+\verb|nmap -oN scan.txt 10.20.4.2| \dotfill Text file\\
+\verb|nmap -oX scan.xml 10.20.4.2| \dotfill XML file\\
+\verb|nmap -oG scan.txt 10.20.4.2| \dotfill Grepable text file\\
+\verb|nmap -oA scan.txt 10.20.4.2| \dotfill All file types\\
+\verb|nmap -oS scan.txt 10.20.4.2| \dotfill 1337 output\\
+\verb|nmap --stats-every [time] 10.20.4.2| \dotfill Statistics\\
+
+\textit{Ndiff}
+
 \textit{Scan Options}
 \vskip-5pt
 \verb|nmap -sP 10.20.4.1| \dotfill Ping scan only\\
+\verb|nmap -PN 10.20.4.1| \dotfill No ping scan\\
+\verb|nmap -PS 10.20.4.1| \dotfill \verb|TCP-SYN| scan\\
+\verb|nmap -PA 10.20.4.1| \dotfill \verb|TCP-ACK| scan\\
 \verb|nmap -PU 10.20.4.1| \dotfill \verb|UDP| ping scan\\
+\verb|nmap -PY 10.20.4.1| \dotfill \verb|SCTP| scan\\
 \verb|nmap -PE 10.20.4.1| \dotfill \verb|ICMP| echo ping\\
+\verb|nmap -PP 10.20.4.1| \dotfill \verb|ICMP| timestamp ping\\
+\verb|nmap -PM 10.20.4.1| \dotfill \verb|ICMP| address mask ping\\
 \verb|nmap -PO 10.20.4.1| \dotfill \verb|IP| protocol ping\\
 \verb|nmap -PR 10.20.4.1| \dotfill \verb|ARP| ping\\
-\verb|nmap -Pn 10.20.4.1| \dotfill Scan without ping\\
-\verb|nmap --traceroute 10.20.4.1| \dotfill Traceroute\\
+\verb|nmap -traceroute 10.20.4.1| \dotfill Traceroute\\
+\verb|nmap -R 10.20.4.1| \dotfill Force reverse \verb|DNS| resolution\\
+\verb|nmap -n 10.20.4.1| \dotfill Disable reverse \verb|DNS| resolution\\
+\verb|nmap -system-dns 10.20.4.1| \dotfill Alternate \verb|DNS| lookup\\
+\verb|nmap -dns-servers <server> 10.20.4.1| \dotfill Manual \verb|DNS|\\
+\verb|nmap -sL 10.20.4.1-10| \dotfill Create host list\\
 
 \textit{Scripts NSE}
 \vskip-5pt
